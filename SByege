@@ -54,3 +54,51 @@ public class StrLine implements Comparable<StrLine>{
 }
 
 //主方法
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
+public class test {
+	public static void main(String[] args) throws IOException {
+		try {
+			FileReader fr = new FileReader("G:\\csv.txt");
+			BufferedReader br = new BufferedReader(fr);//打开文件
+			String[] str = null;//用于存储每行处理后的数据
+			String strtemp = null;//用于存储每行数据
+			boolean flag = false;//判断新读入的key是否在集合中已经存在的flag
+			List<StrLine> strList = new ArrayList<StrLine>();//每行数据的集合
+			
+			//文件读取
+			while((strtemp=br.readLine())!=null) {//若下一行不为空则进入循环
+				str = strtemp.split(",");//将这一行的数据以逗号分隔，并存入字符串数组中
+				
+				for (StrLine strTemp : strList) {//判断该key是否出现过
+					if(strTemp.getKey().equals(str[0])) {
+						flag = true;
+					}
+				}
+				if(!flag) {//若未出现则加入List集合中
+					StrLine temp = new StrLine();
+					temp.setKey(str[0]);
+					temp.setValue1(str[1]);
+					temp.setValue2(str[2]);
+					temp.setValue3(str[3]);
+					strList.add(temp);
+					
+				}
+				flag = false;
+			}
+			Collections.sort(strList);//自动排序，用到了StrLine类中重写的compareTo方法
+			for (StrLine strTemp : strList) {//输出集合
+				System.out.println(strTemp.getKey()+","+strTemp.getValue1()+","+strTemp.getValue2()+","+strTemp.getValue3());
+			}
+			
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+	}
+}
