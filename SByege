@@ -1,0 +1,56 @@
+/*
+给定一个csv文件（共4列），将给定的csv文件读入，当第一列读入的key发生重复时，只保留发生重复key的第一行。
+将读入后的列表按照第三列排序（按ansii编码）后输出到控制台。
+•给定csv内容如下：
+•111,55,5555,33
+•112,66,33456,76
+•115,66,3356,66
+•111,43,5535,32
+•115,354,356,33
+•117999,333,44,55
+期望结果如下
+•112,66,33456,76
+•115,66,3356,66
+•117999,333,44,55
+•111, 55,5555,33
+*/
+
+//用于存储每行的数据
+public class StrLine implements Comparable<StrLine>{
+	private String key;
+	private String value1;
+	private String value2;
+	private String value3;
+	public String getKey() {
+		return key;
+	}
+	public void setKey(String key) {
+		this.key = key;
+	}
+	public String getValue1() {
+		return value1;
+	}
+	public void setValue1(String value1) {
+		this.value1 = value1;
+	}
+	public String getValue2() {
+		return value2;
+	}
+	public void setValue2(String value2) {
+		this.value2 = value2;
+	}
+	public String getValue3() {
+		return value3;
+	}
+	public void setValue3(String value3) {
+		this.value3 = value3;
+	}
+	@Override
+	public int compareTo(StrLine o) {
+		return o.getValue3().compareTo(this.value3);
+	}
+	
+	
+}
+
+//主方法
